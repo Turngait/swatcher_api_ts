@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "baseUrl": "src",
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules/*"
+  ]
+}
