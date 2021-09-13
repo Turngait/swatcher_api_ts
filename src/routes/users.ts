@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
 
 import UserController from '../controllers/UserController';
-import { signUpValidators, loginValidators } from './validators';
-import { isValid } from '../middleware';
+import { signUpValidators, loginValidators, saveUserDataValidators } from './validators';
+import { isValid, checkToken } from '../middleware';
 
 const router = Router();
 
@@ -14,4 +14,7 @@ router.post('/signin', loginValidators, isValid, async (req: Request, res: Respo
   await UserController.signIn(req, res);
 });
 
+router.post('/savedata', checkToken, saveUserDataValidators, isValid, async (req: Request, res: Response) => {
+  await UserController.saveData(req, res);
+});
 export default router;

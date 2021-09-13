@@ -1,7 +1,7 @@
 import Model from './mongoose/model';
 import { createPassword, createPaper, createToken} from '../../config/sec';
 import { dateNow } from '../../utils/date';
-import { IUser } from '../../interfaces/user';
+import { IUser, IUserPublicData } from '../../interfaces/user';
 import { Document, Query } from 'mongoose';
 
 class User {
@@ -67,7 +67,55 @@ class User {
     }
   }
 
-  static async getUserByEmail(email: string): Promise<Query<any, Document<IUser>>> {
+  static async getUserPublicData(_id: string): Promise<IUserPublicData | null> {
+    try {
+      const user = await User.getUserById(_id);
+      if(user) {
+        return {
+          name: user.name,
+          email: user.email,
+          status: user.status,
+          isBanned: user.isBanned,
+          data: user.data,
+          settings: user.settings,
+          onboarding: user.onboarding,
+          createdAt: user.createdAt
+        };
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  static async saveUserData (id: string, sex: string, age: number, weight: number, height: number): Promise<boolean> {
+    try {
+      const data = {
+        sex,
+        age,
+        weight,
+        height
+      };
+      await Model.updateOne({_id: id}, {data});
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  private static async getUserById(_id: string): Promise<Query<any, Document<IUser>>> {
+    try {
+      return await Model.findOne({_id});
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
+
+  private static async getUserByEmail(email: string): Promise<Query<any, Document<IUser>>> {
     try {
       return await Model.findOne({email});
     } catch (error) {
@@ -76,9 +124,11 @@ class User {
     }
   }
 
-  async getUserByToken(token: string): Promise<Query<any, Document<IUser>>> {
+  // Method using only in middleware
+  static async getUserIdByToken(token: string): Promise<string | null> {
     try {
-      return await Model.findOne({token});
+      const user = await Model.findOne({token});
+      return user._id.toString();
     } catch (error) {
       console.log(error);
       return null;

@@ -22,3 +22,24 @@ export interface IUser {
   },
   createdAt: string
 }
+
+export interface IUserPublicData {
+  name: string,
+  email: string,
+  status: string,
+  isBanned: boolean,
+  data: {
+    sex: string,
+    age: number,
+    weight: number,
+    height: number,
+  },
+  settings: {
+    lang: string,
+    theme: string,
+  },
+  onboarding: {
+    firstTime: boolean,
+  },
+  createdAt: string
+}

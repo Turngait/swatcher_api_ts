@@ -1,7 +1,7 @@
-const SEND_GRID: string = process.env.SEND_GRID || '';
+const MAIL_API_KEY: string = process.env.MAIL_API_KEY || '';
 const API_KEYS: [string] = [process.env.API_KEY];
 
 export {
-  SEND_GRID,
+  MAIL_API_KEY,
   API_KEYS
 }

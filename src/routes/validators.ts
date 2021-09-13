@@ -8,7 +8,16 @@ export const signUpValidators = [
   body('email').isEmail().withMessage('Введите правильный e-mail'),
   body('pass').isLength({min: 5}).withMessage('Длина пароля должна быть не менее 5-ти символов'),
   body('name').isLength({min: 2}).withMessage('Длина имени должна быть не менее 2 символов')
-]
+];
+
+export const saveUserDataValidators = [
+  body('sex').isIn(['woman', 'man']).withMessage('Укажите правильный пол'),
+  body('age').isNumeric().withMessage('Введите верный возраст'),
+  body('weight').isNumeric().withMessage('Введите верный вес'),
+  body('height').isNumeric().withMessage('Введите правильный рост'),
+  body('token').not().isEmpty().withMessage('Необходим токен'),
+
+];
 
 // export const addGroupValidators = [
 //   body('groupTitle').isLength({min: 3}).withMessage('Длина названия должна быть не меенее 3х символов')
