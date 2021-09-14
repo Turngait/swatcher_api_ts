@@ -6,6 +6,8 @@ dotenv.config();
 
 import homeRouter from './routes/home';
 import usersRouter from './routes/users';
+import foodRouter from './routes/food';
+import healthRouter from './routes/health';
 import { AtlasUrl } from './config/db';
 import { MongoOptions } from './interfaces/system';
 
@@ -20,6 +22,8 @@ app.use(express.json({
 
 app.use('/', homeRouter);
 app.use('/users', usersRouter);
+app.use('/food', foodRouter);
+app.use('/health', healthRouter);
 
 // console.log(process.env);
 
