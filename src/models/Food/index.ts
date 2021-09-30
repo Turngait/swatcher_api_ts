@@ -2,7 +2,8 @@ import { Document, Query } from 'mongoose';
 
 import Model from './mongoose/model';
 import { dateNow } from '../../utils/date';
-import {IFood, IFoodPublic} from '../../interfaces/foods';
+import {IFood, IFoodPublic, IFoodStat} from '../../interfaces/foods';
+
 class Food {
   static async getAllFoodData(userId: string): Promise<IFoodPublic | null> {
     try {

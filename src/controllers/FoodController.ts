@@ -31,7 +31,7 @@ class FoodController {
   static async addFoodForDay(req: Request, res: Response): Promise<void> {
     console.log(req.body);
 
-    res.json({test: true});
+    res.json({status: 200});
   }
 }
 

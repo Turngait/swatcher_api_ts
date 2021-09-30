@@ -8,6 +8,7 @@ import homeRouter from './routes/home';
 import usersRouter from './routes/users';
 import foodRouter from './routes/food';
 import healthRouter from './routes/health';
+import statsRouter from './routes/stats';
 import { AtlasUrl } from './config/db';
 import { MongoOptions } from './interfaces/system';
 import {checkApiKey} from './middleware';
@@ -25,6 +26,7 @@ app.use('/', homeRouter);
 app.use('/users', usersRouter);
 app.use('/food', foodRouter);
 app.use('/health', healthRouter);
+app.use('/stats', statsRouter);
 
 // console.log(process.env);
 

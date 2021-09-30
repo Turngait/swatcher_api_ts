@@ -15,3 +15,11 @@ export interface IFoodPublic {
   descr: string,
   createdAt: string
 }
+
+export interface IFoodStat {
+  id?: string,
+  food_id: string,
+  description: string,
+  amount: number,
+  time: string
+}
