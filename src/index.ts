@@ -10,7 +10,7 @@ import foodRouter from './routes/food';
 import healthRouter from './routes/health';
 import { AtlasUrl } from './config/db';
 import { MongoOptions } from './interfaces/system';
-
+import {checkApiKey} from './middleware';
 
 const app: express.Application = express();
 app.use(cors());
@@ -19,6 +19,7 @@ app.use(express.json({
   strict: true,
   type: 'application/json'
 }));
+app.use(checkApiKey);
 
 app.use('/', homeRouter);
 app.use('/users', usersRouter);

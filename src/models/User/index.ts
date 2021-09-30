@@ -128,7 +128,11 @@ class User {
   static async getUserIdByToken(token: string): Promise<string | null> {
     try {
       const user = await Model.findOne({token});
-      return user._id.toString();
+      if(user) {
+        return user._id.toString();
+      } else {
+        return null;
+      }
     } catch (error) {
       console.log(error);
       return null;

@@ -17,6 +17,22 @@ class FoodController {
     res.status(status);
     res.json({status});
   }
+
+  static async deleteFood(req: Request, res: Response): Promise<void> {
+    const {id, userId} = req.body;
+    let status = 500;
+    const result = await Food.deleteFood(id, userId);
+
+    if (result) status = 200;
+    res.status(status);
+    res.json({status});
+  }
+
+  static async addFoodForDay(req: Request, res: Response): Promise<void> {
+    console.log(req.body);
+
+    res.json({test: true});
+  }
 }
 
 export default FoodController;

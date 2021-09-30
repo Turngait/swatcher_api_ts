@@ -14,4 +14,11 @@ router.post('/alldata', checkToken, async (req: Request, res: Response) => {
   await FoodController.getAllData(req, res);
 });
 
+router.delete('/delfood', checkToken, async (req: Request, res: Response) => {
+  await FoodController.deleteFood(req, res);
+});
+
+router.post('/addforday', checkToken, async (req: Request, res: Response) => {
+  await FoodController.addFoodForDay(req, res);
+});
 export default router;

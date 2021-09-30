@@ -56,6 +56,17 @@ class Food {
       return false;
     }
   }
+
+  static async deleteFood(_id: string, userId: string): Promise<boolean> {
+    try {
+      await Model.deleteOne({_id, userId});
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+    return true;
+  }
 }
 
 export default Food;
