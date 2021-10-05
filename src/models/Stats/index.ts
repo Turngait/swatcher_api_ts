@@ -5,6 +5,19 @@ import {IStat, IStatPublic} from "interfaces/common";
 import Model from './mongoose/model';
 
 class Stats {
+  static async getStatForPeriod(userId: string, period: string): Promise<any> {
+    try {
+      const stats = await Model.find({period, userId});
+      const normalizedStat = [];
+      for (const stat of stats) {
+        normalizedStat.push(Stats.normalizeStatData(stat))
+      }
+      return normalizedStat;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  }
   static async addNewDayStat(userId: string, date: string): Promise<Query<any, Document<IStat>> | null> {
     const stat = new Model({
       userId,
