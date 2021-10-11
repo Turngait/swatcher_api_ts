@@ -14,6 +14,7 @@ class StatController {
     res.status(status);
     res.json({stat: normalizeStatData(stat, foods), status});
   }
+
   static async addFoodForDay(req: Request, res: Response): Promise<void> {
     let status = 500;
     const {food, date, userId} = req.body;
@@ -21,6 +22,17 @@ class StatController {
     if(stats) status = 200;
     res.status(status);
     res.json({status, stats});
+  }
+
+  static async addIllnessForDay(req: Request, res: Response): Promise<void> {
+    let status = 500;
+    const {illness, date, userId} = req.body;
+    const stats = await Stats.addIllnessForDay(illness, date, userId);
+    if(stats) status = 200;
+    res.status(status);
+    console.log(req.body);
+    res.json({status});
+
   }
 }
 

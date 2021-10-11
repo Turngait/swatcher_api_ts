@@ -1,6 +1,7 @@
 import { Document, Query } from 'mongoose';
 
 import { IFoodStat } from "interfaces/foods";
+import { IIllnessStat } from "interfaces/health";
 import {IStat, IStatPublic} from "interfaces/common";
 import Model from './mongoose/model';
 
@@ -60,6 +61,30 @@ class Stats {
       newStat.foods.unshift(food);
       try {
         const statData = await newStat.save();
+        return Stats.normalizeStatData(statData);
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+    }
+  }
+
+  static async addIllnessForDay(illness: IIllnessStat, date: string, userId: string): Promise<any> {
+    const oldStat = await Stats.getStatForDay(date, userId);
+    if (oldStat) {
+      oldStat.health.unshift(illness);
+      try {
+        return await oldStat.save();
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+    } else {
+      const newStat = await Stats.addNewDayStat(userId, date);
+      newStat.health.unshift(illness);
+      try {
+        const statData = await newStat.save();
+        console.log(statData);
         return Stats.normalizeStatData(statData);
       } catch (err) {
         console.log(err);

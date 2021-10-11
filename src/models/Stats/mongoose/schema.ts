@@ -9,8 +9,8 @@ const foodSchema = {
     time: String
   }],
   health: [{
-    healthId: String,
-    power: String,
+    health_id: String,
+    power: Number,
     begin: String,
     duration: String,
     description: String

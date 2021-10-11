@@ -14,4 +14,8 @@ router.post('/addfoodforday', checkToken, async (req: Request, res: Response) =>
   await StatController.addFoodForDay(req, res);
 });
 
+router.post('/addillnessforday', checkToken, async (req: Request, res: Response) => {
+  await StatController.addIllnessForDay(req, res);
+});
+
 export default router;

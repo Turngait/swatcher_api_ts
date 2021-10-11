@@ -3,6 +3,7 @@ import {Request, Response} from 'express';
 import User from '../models/User';
 import Stats from '../models/Stats';
 import Food from '../models/Food';
+import Health from '../models/Health';
 
 import { normalizeStatData } from '../utils/stats';
 
@@ -19,13 +20,14 @@ router.post('/getdata', checkToken, async (req: Request, res: Response) => {
   let user = null;
   let stat = [];
   let foods = null;
+  let health = null;
   if(userId) {
     user = await User.getUserPublicData(String(userId));
     stat = await Stats.getStatForPeriod(userId, period);
     foods = await Food.getAllFoodData(userId);
-
+    health = await Health.getAllIllneses(userId);
   }
-  res.json({user, stat: normalizeStatData(stat, foods), foods});
+  res.json({user, stat: normalizeStatData(stat, foods), foods, health});
 })
 
 export default router;
