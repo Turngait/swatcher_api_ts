@@ -93,13 +93,45 @@ class Stats {
     }
   }
 
+  static async deleteFoodForDay(id: string, date: string, userId: string): Promise<boolean> {
+    const stat = await Stats.getStatForDay(date, userId);
+    if(stat) {
+      stat.foods = stat.foods.filter((food: any) => food._id.toString() !== id);
+      try {
+        await stat.save();
+        return true;
+      } catch (err) {
+        console.log(err);
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  static async deleteIllForDay(id: string, date: string, userId: string): Promise<boolean> {
+    const stat = await Stats.getStatForDay(date, userId);
+    if(stat) {
+      stat.health = stat.health.filter((item: any) => item._id.toString() !== id);
+      try {
+        await stat.save();
+        return true;
+      } catch (err) {
+        console.log(err);
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   static normalizeStatData(stat: any): IStatPublic | null {
     if (stat) {
       return {
         id: stat._id,
         date: stat.date,
         foods: stat.foods,
-        health: stat.helath
+        health: stat.health
       };
     }
     return null;

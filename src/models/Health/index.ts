@@ -21,6 +21,16 @@ class Health {
     }
   }
 
+  static async deleteIllness(_id: string, userId: string): Promise<boolean> {
+    try {
+      await Model.deleteOne({_id, userId});
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  }
+
   static async getAllIllneses(userId: string): Promise<IIllnessPublic[]> {
     const illnesses = await Health.getIllnessByUserId(userId);
     if(illnesses) {

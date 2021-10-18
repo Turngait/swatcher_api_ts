@@ -27,7 +27,7 @@ router.post('/getdata', checkToken, async (req: Request, res: Response) => {
     foods = await Food.getAllFoodData(userId);
     health = await Health.getAllIllneses(userId);
   }
-  res.json({user, stat: normalizeStatData(stat, foods), foods, health});
+  res.json({user, stat: normalizeStatData(stat, foods, health), foods, health});
 })
 
 export default router;
