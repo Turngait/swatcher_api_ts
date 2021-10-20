@@ -106,6 +106,42 @@ class User {
     }
   }
 
+  static async changeUserName(name: string, _id: string): Promise<boolean> {
+    const user = await User.getUserById(_id);
+    if(user) {
+      user.name = name;
+      try {
+        await user.save();
+        return true;
+      } catch(err) {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  static async changeUserPass(oldPass: string, pass: string, _id: string): Promise<number> {
+    const user = await User.getUserById(_id);
+    if (user) {
+      const hashPass = createPassword(oldPass, user.paper);
+      if (hashPass === user.pass) {
+        user.pass = createPassword(pass, user.paper);
+        try {
+          await user.save();
+          return 200;
+        } catch(err) {
+          return 500;
+        }
+      } else {
+        return 403;
+      }
+
+    } else {
+      return 403;
+    }
+  }
+
   private static async getUserById(_id: string): Promise<Query<any, Document<IUser>>> {
     try {
       return await Model.findOne({_id});

@@ -19,6 +19,14 @@ export const saveUserDataValidators = [
 
 ];
 
+export const changeUserNameValidator = [
+  body('name').isLength({min: 3}).withMessage('Длина имени должна быть не менее 3 символов')
+];
+
+export const changeUserPassValidator = [
+  body('pass').isLength({min: 5}).withMessage('Длина пароля должна быть не менее 5-ти символов')
+];
+
 // export const addGroupValidators = [
 //   body('groupTitle').isLength({min: 3}).withMessage('Длина названия должна быть не меенее 3х символов')
 // ]

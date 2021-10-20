@@ -47,6 +47,25 @@ class UserController {
     res.status(status);
     res.json({status});
   }
+
+  static async changeUserName (req: Request, res: Response): Promise<void> {
+    const {name, userId} = req.body;
+    let status = 500;
+    const result = await User.changeUserName(name, userId);
+    if(result) {
+      status = 200;
+    }
+
+    res.status(status);
+    res.json({status});
+  }
+
+  static async changeUserPass(req: Request, res: Response): Promise<void> {
+    const {oldPass, pass, userId} = req.body;
+    const status = await User.changeUserPass(oldPass, pass, userId);
+    res.status(status);
+    res.json({status});
+  }
 }
 
 export default UserController;
