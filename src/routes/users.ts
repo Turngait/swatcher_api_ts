@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 
 import UserController from '../controllers/UserController';
-import { signUpValidators, loginValidators, saveUserDataValidators, changeUserNameValidator, changeUserPassValidator } from './validators';
+import { signUpValidators, loginValidators, saveUserDataValidators, changeUserNameValidator, changeUserPassValidator, restorePassValidator } from './validators';
 import { isValid, checkToken } from '../middleware';
 
 const router = Router();
@@ -20,5 +20,7 @@ router.post('/savedata', checkToken, saveUserDataValidators, isValid, async (req
 
 router.put('/changename', checkToken, changeUserNameValidator, isValid, UserController.changeUserName);
 router.put('/changepass', checkToken, changeUserPassValidator, isValid, UserController.changeUserPass);
+
+router.post('/restorepass', restorePassValidator, isValid, UserController.restoreUserPass);
 
 export default router;

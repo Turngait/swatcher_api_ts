@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 
 import User from '../models/User';
 import Mailer from '../models/Mailer';
+import Restore from '../models/Restore';
 
 class UserController {
   static async signUp(req: Request, res: Response): Promise<void> {
@@ -63,6 +64,37 @@ class UserController {
   static async changeUserPass(req: Request, res: Response): Promise<void> {
     const {oldPass, pass, userId} = req.body;
     const status = await User.changeUserPass(oldPass, pass, userId);
+    res.status(status);
+    res.json({status});
+  }
+
+  static async restoreUserPass(req: Request, res: Response): Promise<void> {
+    let status = 500;
+    const { email, pass, code, start } = req.body;
+    const user = await User.getUserByEmail(email);
+
+    if(!user) {
+      status = 403;
+    } else {
+      if (start) {
+        const newCode = await Restore.saveCode(email);
+        const isSend = await Mailer.sendRecoveryMail(email, newCode);
+        if(isSend) status = 200;
+      } else {
+        const isCodeExist = await Restore.hasCode(email, code);
+        if(isCodeExist) {
+          const isChange = await User.setUserPass(pass, email);
+          if(isChange) {
+            const isSend = await Mailer.sendPassWasChanged(email, pass);
+            if(isSend) status = 200;
+          }
+          await Restore.delCode(email);
+        } else {
+          status = 403;
+        }
+      }
+    }
+
     res.status(status);
     res.json({status});
   }

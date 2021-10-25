@@ -27,6 +27,11 @@ export const changeUserPassValidator = [
   body('pass').isLength({min: 5}).withMessage('Длина пароля должна быть не менее 5-ти символов')
 ];
 
+export const restorePassValidator = [
+  // body('pass').isLength({min: 5}).withMessage('Длина пароля должна быть не менее 5-ти символов'),
+  body('email').isEmail().withMessage('Введите правильный e-mail')
+];
+
 // export const addGroupValidators = [
 //   body('groupTitle').isLength({min: 3}).withMessage('Длина названия должна быть не меенее 3х символов')
 // ]

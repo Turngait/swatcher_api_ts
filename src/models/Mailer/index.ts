@@ -30,7 +30,7 @@ class Mailer {
     });
   }
 
-  static async sendRecoveryMail(mail: string, value: number): Promise<boolean> {
+  static async sendRecoveryMail(mail: string, value: string): Promise<boolean> {
     const msg = {
       to: mail, // Change to your recipient
       from: 'SelfWatcher<info@fraktur.ru>', // Change to your verified sender

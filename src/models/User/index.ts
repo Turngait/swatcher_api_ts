@@ -142,6 +142,19 @@ class User {
     }
   }
 
+  static async setUserPass(pass: string, email: string): Promise<boolean> {
+    const user = await User.getUserByEmail(email);
+    if(!user) return false;
+
+    user.pass = createPassword(pass, user.paper);
+    try {
+      await user.save();
+      return true;
+    } catch(err) {
+      return false;
+    }
+  }
+
   private static async getUserById(_id: string): Promise<Query<any, Document<IUser>>> {
     try {
       return await Model.findOne({_id});
@@ -151,7 +164,7 @@ class User {
     }
   }
 
-  private static async getUserByEmail(email: string): Promise<Query<any, Document<IUser>>> {
+  static async getUserByEmail(email: string): Promise<Query<any, Document<IUser>>> {
     try {
       return await Model.findOne({email});
     } catch (error) {
