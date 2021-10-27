@@ -6,9 +6,8 @@ import { checkToken } from '../middleware';
 
 const router = Router();
 
-router.post('/addfood', checkToken, async (req: Request, res: Response) => {
-  await FoodController.addNewFood(req, res);
-});
+// Todo добавить валлидацию
+router.post('/addfood', checkToken, FoodController.addNewFood);
 
 router.post('/alldata', checkToken, async (req: Request, res: Response) => {
   await FoodController.getAllData(req, res);

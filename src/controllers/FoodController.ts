@@ -13,9 +13,9 @@ class FoodController {
     const {title, callories, descr, userId} = req.body;
     let status = 500;
     const result = await Food.addNewFood(userId, title, callories, descr);
-    if (result) status = 200;
+    if (result.status) status = 200;
     res.status(status);
-    res.json({status});
+    res.json({status, id: result.id});
   }
 
   static async deleteFood(req: Request, res: Response): Promise<void> {

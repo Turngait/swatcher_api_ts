@@ -39,7 +39,7 @@ class Food {
       return null;
     }
   }
-  static async addNewFood(userId: string, title: string, callories: number, descr: string): Promise<boolean> {
+  static async addNewFood(userId: string, title: string, callories: number, descr: string): Promise<{status: boolean, id: string}> {
     const newFood = new Model({
       title,
       callories,
@@ -50,11 +50,11 @@ class Food {
     });
 
     try {
-      await newFood.save();
-      return true;
+      const food = await newFood.save();
+      return {status: true, id: food._id.toString()};
     } catch (err) {
       console.log(err);
-      return false;
+      return {status: false, id: ''};
     }
   }
 

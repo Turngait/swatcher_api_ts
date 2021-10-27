@@ -4,12 +4,12 @@ import Health from '../models/Health';
 
 class HealthController {
   static async addNewIllness(req: Request, res: Response): Promise<void> {
-    const {title, descr, userId} = req.body;
+    const {title, descr, danger, userId} = req.body;
     let status = 500;
-    const result = await Health.addNewIllness(userId, title, descr);
-    if (result) status = 200;
+    const result = await Health.addNewIllness(userId, title, descr, danger);
+    if (result.status) status = 200;
     res.status(status);
-    res.json({status});
+    res.json({status, id: result.id});
   }
 
   static async deleteIllness(req: Request, res: Response): Promise<void> {

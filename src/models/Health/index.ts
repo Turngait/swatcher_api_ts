@@ -3,21 +3,21 @@ import { dateNow } from '../../utils/date';
 import {IIllnessPublic} from '../../interfaces/health';
 
 class Health {
-  static async addNewIllness(userId: string, title: string, descr: string): Promise<boolean> {
+  static async addNewIllness(userId: string, title: string, descr: string, danger: string): Promise<{status: boolean, id: string}> {
     const newIllness = new Model({
       title,
       userId,
-      danger: '',
+      danger,
       descr,
       createdAt: dateNow()
     });
 
     try {
-      await newIllness.save();
-      return true;
+      const ill = await newIllness.save();
+      return {status: true, id: ill._id.toString()};
     } catch (err) {
       console.log(err);
-      return false;
+      return {status: false, id: ''};
     }
   }
 
