@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
-    "start": "node",
+    "start": "node dist/index",
     "build": "tsc",
     "dev": "nodemon",
     "server:watch": "ts-node-dev --respawn --transpile-only src/index.ts"

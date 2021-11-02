@@ -39,58 +39,65 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var express_1 = __importDefault(require("express"));
-var cors_1 = __importDefault(require("cors"));
-var mongoose_1 = require("mongoose");
-var dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1["default"].config();
-var home_1 = __importDefault(require("./routes/home"));
-var users_1 = __importDefault(require("./routes/users"));
-var food_1 = __importDefault(require("./routes/food"));
-var health_1 = __importDefault(require("./routes/health"));
-var stats_1 = __importDefault(require("./routes/stats"));
-var db_1 = require("./config/db");
-var middleware_1 = require("./middleware");
-var app = express_1["default"]();
-app.use(cors_1["default"]());
-app.use(express_1["default"].json({
-    inflate: true,
-    strict: true,
-    type: 'application/json'
-}));
-app.use(middleware_1.checkApiKey);
-app.use('/', home_1["default"]);
-app.use('/users', users_1["default"]);
-app.use('/food', food_1["default"]);
-app.use('/health', health_1["default"]);
-app.use('/stats', stats_1["default"]);
-// console.log(process.env);
-function start() {
+exports.checkToken = exports.checkApiKey = exports.isValid = void 0;
+var check_1 = require("express-validator/check");
+var api_1 = require("../config/api");
+var User_1 = __importDefault(require("../models/User"));
+function isValid(req, res, next) {
     return __awaiter(this, void 0, void 0, function () {
-        var options;
+        var errors;
+        return __generator(this, function (_a) {
+            errors = check_1.validationResult(req);
+            if (!errors.isEmpty()) {
+                res.status(422);
+                res.json(errors);
+            }
+            else {
+                next();
+            }
+            return [2 /*return*/];
+        });
+    });
+}
+exports.isValid = isValid;
+function checkApiKey(req, res, next) {
+    if (req.headers['api-key'] && api_1.API_KEYS.includes(req.headers['api-key'])) {
+        next();
+    }
+    else {
+        res.json({ status: 403, error: 'Incorrect Api key', appVersion: '1.0.7' });
+    }
+}
+exports.checkApiKey = checkApiKey;
+;
+function checkToken(req, res, next) {
+    return __awaiter(this, void 0, void 0, function () {
+        var token, userId;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    options = {
-                        useNewUrlParser: true,
-                        useUnifiedTopology: true
-                    };
-                    return [4 /*yield*/, mongoose_1.connect(db_1.AtlasUrl, options, function (err) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            else {
-                                console.log('Connected to DB');
-                                var port_1 = +process.env.PORT || 5000;
-                                app.listen(port_1, function () { return console.log("Running on port " + port_1); });
-                            }
-                        })];
+                    token = req.body.token;
+                    if (!token) return [3 /*break*/, 2];
+                    return [4 /*yield*/, User_1["default"].getUserIdByToken(token)];
                 case 1:
-                    _a.sent();
-                    return [2 /*return*/];
+                    userId = _a.sent();
+                    if (userId) {
+                        req.body.userId = userId;
+                        next();
+                    }
+                    else {
+                        res.status(403);
+                        res.json({ status: 403, error: 'Token is not valid' });
+                    }
+                    return [3 /*break*/, 3];
+                case 2:
+                    res.status(400);
+                    res.json({ status: 400, error: 'Token is required' });
+                    _a.label = 3;
+                case 3: return [2 /*return*/];
             }
         });
     });
 }
-start();
+exports.checkToken = checkToken;
 //# sourceMappingURL=index.js.map

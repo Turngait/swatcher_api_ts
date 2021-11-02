@@ -39,58 +39,50 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var express_1 = __importDefault(require("express"));
-var cors_1 = __importDefault(require("cors"));
-var mongoose_1 = require("mongoose");
-var dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1["default"].config();
-var home_1 = __importDefault(require("./routes/home"));
-var users_1 = __importDefault(require("./routes/users"));
-var food_1 = __importDefault(require("./routes/food"));
-var health_1 = __importDefault(require("./routes/health"));
-var stats_1 = __importDefault(require("./routes/stats"));
-var db_1 = require("./config/db");
-var middleware_1 = require("./middleware");
-var app = express_1["default"]();
-app.use(cors_1["default"]());
-app.use(express_1["default"].json({
-    inflate: true,
-    strict: true,
-    type: 'application/json'
-}));
-app.use(middleware_1.checkApiKey);
-app.use('/', home_1["default"]);
-app.use('/users', users_1["default"]);
-app.use('/food', food_1["default"]);
-app.use('/health', health_1["default"]);
-app.use('/stats', stats_1["default"]);
-// console.log(process.env);
-function start() {
-    return __awaiter(this, void 0, void 0, function () {
-        var options;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    options = {
-                        useNewUrlParser: true,
-                        useUnifiedTopology: true
-                    };
-                    return [4 /*yield*/, mongoose_1.connect(db_1.AtlasUrl, options, function (err) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            else {
-                                console.log('Connected to DB');
-                                var port_1 = +process.env.PORT || 5000;
-                                app.listen(port_1, function () { return console.log("Running on port " + port_1); });
-                            }
-                        })];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
+var express_1 = require("express");
+var User_1 = __importDefault(require("../models/User"));
+var Stats_1 = __importDefault(require("../models/Stats"));
+var Food_1 = __importDefault(require("../models/Food"));
+var Health_1 = __importDefault(require("../models/Health"));
+var stats_1 = require("../utils/stats");
+var middleware_1 = require("../middleware");
+var router = express_1.Router();
+router.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        console.log('Server is working now');
+        res.json({ isAlive: true });
+        return [2 /*return*/];
     });
-}
-start();
-//# sourceMappingURL=index.js.map
+}); });
+router.post('/getdata', middleware_1.checkToken, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, userId, period, user, stat, foods, health;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, userId = _a.userId, period = _a.period;
+                user = null;
+                stat = [];
+                foods = null;
+                health = null;
+                if (!userId) return [3 /*break*/, 5];
+                return [4 /*yield*/, User_1["default"].getUserPublicData(String(userId))];
+            case 1:
+                user = _b.sent();
+                return [4 /*yield*/, Stats_1["default"].getStatForPeriod(userId, period)];
+            case 2:
+                stat = _b.sent();
+                return [4 /*yield*/, Food_1["default"].getAllFoodData(userId)];
+            case 3:
+                foods = _b.sent();
+                return [4 /*yield*/, Health_1["default"].getAllIllneses(userId)];
+            case 4:
+                health = _b.sent();
+                _b.label = 5;
+            case 5:
+                res.json({ user: user, stat: stats_1.normalizeStatData(stat, foods, health), foods: foods, health: health });
+                return [2 /*return*/];
+        }
+    });
+}); });
+exports["default"] = router;
+//# sourceMappingURL=home.js.map
