@@ -12,11 +12,14 @@ export function normalizeStatData(stats, foods, health) {
           time: statFood.time,
           id: statFood._id
         };
+        let isChanged = false;
         for (const food of foods) {
           if(statFood.food_id === food.id) {
             publicFoodStat.title = food.title;
+            isChanged = true;
           }
         }
+        if(!isChanged) publicFoodStat.title = 'Удалено';
         normalizeFoods.push(publicFoodStat);
       }
 
@@ -29,11 +32,14 @@ export function normalizeStatData(stats, foods, health) {
           power: statHealth.power,
           id: statHealth._id
         };
+        let isChanged = false;
         for (const itemH of health) {
           if(statHealth.health_id === String(itemH.id)) {
             publicHealthStat.title = itemH.title;
+            isChanged = true;
           }
         }
+        if(!isChanged) publicHealthStat.title = 'Удалено';
         normalizedHealth.push(publicHealthStat);
       }
       stat.foods = normalizeFoods;
