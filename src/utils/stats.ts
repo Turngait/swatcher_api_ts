@@ -46,5 +46,5 @@ export function normalizeStatData(stats, foods, health) {
       stat.health = normalizedHealth;
     });
   }
-  return stats;
+  return stats.reverse();
 }
