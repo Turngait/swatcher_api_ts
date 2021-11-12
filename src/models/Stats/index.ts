@@ -99,6 +99,7 @@ class Stats {
       stat.foods = stat.foods.filter((food: any) => food._id.toString() !== id);
       try {
         await stat.save();
+        await Stats.deleteDay(date, userId);
         return true;
       } catch (err) {
         console.log(err);
@@ -115,6 +116,7 @@ class Stats {
       stat.health = stat.health.filter((item: any) => item._id.toString() !== id);
       try {
         await stat.save();
+        await Stats.deleteDay(date, userId);
         return true;
       } catch (err) {
         console.log(err);
@@ -122,6 +124,21 @@ class Stats {
       }
     } else {
       return false;
+    }
+  }
+
+  static async deleteDay(date: string, userId: string): Promise<{isDeleted: boolean, error: string | null}> {
+    try{
+      const stat = await Stats.getStatForDay(date, userId);
+      if(stat && stat.foods.length === 0 && stat.health.length === 0) {
+        await Model.deleteOne({date, userId});
+        return {isDeleted: true, error: null};
+      } else {
+        return {isDeleted: false, error: 'Сначала удалите всю статистику по данному дню'};
+      }
+    } catch (error) {
+      console.log(error);
+      return {isDeleted: false, error: error.message};
     }
   }
 

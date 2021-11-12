@@ -39,10 +39,11 @@ class Food {
       return null;
     }
   }
-  static async addNewFood(userId: string, title: string, callories: number, descr: string): Promise<{status: boolean, id: string}> {
+  static async addNewFood(userId: string, title: string, callories: number, harmfulness: number, descr: string): Promise<{status: boolean, id: string}> {
     const newFood = new Model({
       title,
       callories,
+      harmfulness,
       groupId: '',
       userId,
       descr,
