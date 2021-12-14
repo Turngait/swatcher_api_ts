@@ -68,6 +68,13 @@ class UserController {
     res.json({status});
   }
 
+  static async changeUserPersonalData(req: Request, res: Response): Promise<void> {
+    const {data, userId} = req.body;
+    const status = await User.changeUserPersonalData(data, userId);
+    res.status(status);
+    res.json({status});
+  }
+
   static async restoreUserPass(req: Request, res: Response): Promise<void> {
     let status = 500;
     const { email, pass, code, start } = req.body;

@@ -20,6 +20,7 @@ router.post('/savedata', checkToken, saveUserDataValidators, isValid, async (req
 
 router.put('/changename', checkToken, changeUserNameValidator, isValid, UserController.changeUserName);
 router.put('/changepass', checkToken, changeUserPassValidator, isValid, UserController.changeUserPass);
+router.put('/changepersdata', checkToken, UserController.changeUserPersonalData);
 
 router.post('/restorepass', restorePassValidator, isValid, UserController.restoreUserPass);
 

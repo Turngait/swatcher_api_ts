@@ -142,6 +142,26 @@ class User {
     }
   }
 
+  static async changeUserPersonalData(data: any, _id: string): Promise<number> {
+    const user = await User.getUserById(_id);
+    if(user) {
+      user.data.age = data.age;
+      user.data.weight = data.weight;
+      user.data.height = data.height;
+
+      try {
+        await user.save();
+        return 200;
+      } catch(err) {
+        console.log(err);
+        return 500;
+      }
+      return 200;
+    } else {
+      return 403;
+    }
+  } 
+
   static async setUserPass(pass: string, email: string): Promise<boolean> {
     const user = await User.getUserByEmail(email);
     if(!user) return false;
