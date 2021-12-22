@@ -160,7 +160,7 @@ class User {
     } else {
       return 403;
     }
-  } 
+  }
 
   static async setUserPass(pass: string, email: string): Promise<boolean> {
     const user = await User.getUserByEmail(email);

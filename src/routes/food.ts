@@ -8,6 +8,7 @@ const router = Router();
 
 // Todo добавить валлидацию
 router.post('/addfood', checkToken, FoodController.addNewFood);
+router.put('/edit', checkToken, FoodController.editFood);
 
 router.post('/alldata', checkToken, async (req: Request, res: Response) => {
   await FoodController.getAllData(req, res);

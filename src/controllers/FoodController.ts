@@ -18,6 +18,15 @@ class FoodController {
     res.json({status, id: result.id});
   }
 
+  static async editFood(req: Request, res: Response): Promise<void> {
+    let status = 500;
+    const {food, userId} = req.body;
+    const isEdit = await Food.editFood(food, userId);
+    if(isEdit) status = 200;
+    res.status(status);
+    res.json({status});
+  }
+
   static async deleteFood(req: Request, res: Response): Promise<void> {
     const {id, userId} = req.body;
     let status = 500;

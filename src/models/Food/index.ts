@@ -59,6 +59,25 @@ class Food {
     }
   }
 
+  // TODO типизировать olDFood
+  static async editFood(food: any, userId: string): Promise<boolean> {
+    try {
+      if (!food) return false;
+
+      const oldFood: any = await Model.findOne({userId, _id: food.id});
+      if(!oldFood) return false;
+
+      oldFood.title = food.title;
+      oldFood.callories = food.callories;
+      oldFood.descr = food.descr;
+      await oldFood.save();
+      return true;
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+  }
+
   static async deleteFood(_id: string, userId: string): Promise<boolean> {
     try {
       await Model.deleteOne({_id, userId});
@@ -67,7 +86,6 @@ class Food {
       console.log(err);
       return false;
     }
-    return true;
   }
 }
 
