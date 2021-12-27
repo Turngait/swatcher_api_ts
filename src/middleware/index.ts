@@ -16,7 +16,7 @@ export function checkApiKey(req, res, next) {
   if (req.headers['api-key'] && API_KEYS.includes(req.headers['api-key'])) {
     next();
   } else {
-    res.json({status: 403, error: 'Incorrect Api key', appVersion: '1.0.7'});
+    res.json({status: 403, error: 'Incorrect Api key', appVersion: '0.8.0'});
   }
 };
 
