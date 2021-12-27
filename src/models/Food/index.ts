@@ -16,6 +16,8 @@ class Food {
             title: food.title,
             callories: food.callories,
             groupId: food.groupId,
+            complex: food.complex,
+            ingridients: food.ingridients,
             descr: food.descr,
             createdAt: food.createdAt
           })
@@ -45,6 +47,8 @@ class Food {
       callories,
       harmfulness,
       groupId: '',
+      complex: false,
+      ingridients: [],
       userId,
       descr,
       createdAt: dateNow()

@@ -2,6 +2,7 @@ import Model from './mongoose/model';
 import { dateNow } from '../../utils/date';
 import {IIllnessPublic} from '../../interfaces/health';
 
+// TODO: затипизировать все any
 class Health {
   static async addNewIllness(userId: string, title: string, descr: string, danger: string): Promise<{status: boolean, id: string}> {
     const newIllness = new Model({
@@ -18,6 +19,21 @@ class Health {
     } catch (err) {
       console.log(err);
       return {status: false, id: ''};
+    }
+  }
+
+  static async editIllness(_id: string, title: string, descr: string, userId: string): Promise<boolean> {
+    try {
+      const oldIllness: any = await Model.findOne({_id, userId});
+      if(!oldIllness) return false;
+
+      oldIllness.title = title;
+      oldIllness.descr = descr;
+      await oldIllness.save();
+      return true;
+    } catch(err) {
+      console.log(err);
+      return false;
     }
   }
 

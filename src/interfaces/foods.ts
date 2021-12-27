@@ -4,6 +4,8 @@ export interface IFood {
   groupId: string,
   userId: string,
   descr: string,
+  complex: boolean,
+  ingridients: [string],
   createdAt: string
 }
 
@@ -13,6 +15,8 @@ export interface IFoodPublic {
   callories: number,
   groupId: string,
   descr: string,
+  complex: boolean,
+  ingridients: [string],
   createdAt: string
 }
 

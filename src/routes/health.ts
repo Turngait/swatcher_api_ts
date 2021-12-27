@@ -8,6 +8,7 @@ const router = Router();
 
 // Todo добавить валлидацию
 router.post('/addillness', checkToken, HealthController.addNewIllness);
+router.put('/editillness', checkToken, HealthController.editIllness);
 
 router.delete('/deleteillness', checkToken, async (req: Request, res: Response) => {
   await HealthController.deleteIllness(req, res);
