@@ -1,4 +1,4 @@
-# SelfWatcher client
+# SelfWatcher API
 
 Серверная часть для приложения SelWatcher
 
