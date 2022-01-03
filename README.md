@@ -23,8 +23,8 @@ npm
 
 ## Установка проекта локальная
 ```
-git clone https://github.com/Turngait/swatcher_client_ts.git client
-cd client
+git clone https://github.com/Turngait/swatcher_api_ts.git api
+cd api
 npm install
 cp .env.example .env
 ```
