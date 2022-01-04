@@ -1,7 +1,7 @@
 export interface IIllnessPublic {
   id?: string,
   title: string,
-  danger: string,
+  danger: number,
   descr: string
 }
 

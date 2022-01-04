@@ -1,6 +1,6 @@
 const illnessSchema = {
   title: String,
-  danger: String,
+  danger: Number,
   userId: String,
   descr: String,
   createdAt: String

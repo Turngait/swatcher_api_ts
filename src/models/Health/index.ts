@@ -22,13 +22,14 @@ class Health {
     }
   }
 
-  static async editIllness(_id: string, title: string, descr: string, userId: string): Promise<boolean> {
+  static async editIllness(_id: string, title: string, descr: string, danger: number, userId: string): Promise<boolean> {
     try {
       const oldIllness: any = await Model.findOne({_id, userId});
       if(!oldIllness) return false;
 
       oldIllness.title = title;
       oldIllness.descr = descr;
+      oldIllness.danger = danger;
       await oldIllness.save();
       return true;
     } catch(err) {

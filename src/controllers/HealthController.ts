@@ -23,8 +23,8 @@ class HealthController {
 
   static async editIllness(req: Request, res: Response): Promise<void> {
     let status = 500;
-    const {title, descr, id, userId} = req.body;
-    const isEdited = await Health.editIllness(id, title, descr, userId);
+    const {title, descr, danger, id, userId} = req.body;
+    const isEdited = await Health.editIllness(id, title, descr, danger, userId);
     if(isEdited) status = 200;
     res.status(status);
     res.json({status});
