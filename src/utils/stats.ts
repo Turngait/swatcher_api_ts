@@ -7,6 +7,7 @@ export function normalizeStatData(stats, foods, health) {
       for (const statFood of stat.foods) {
         const publicFoodStat = {
           title: '',
+          units: '',
           description: statFood.description,
           amount: statFood.amount,
           time: statFood.time,
@@ -16,6 +17,7 @@ export function normalizeStatData(stats, foods, health) {
         for (const food of foods) {
           if(statFood.food_id === food.id) {
             publicFoodStat.title = food.title;
+            publicFoodStat.units = food.units;
             isChanged = true;
           }
         }

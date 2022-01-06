@@ -32,6 +32,20 @@ export const restorePassValidator = [
   body('email').isEmail().withMessage('Введите правильный e-mail')
 ];
 
+export const addFoodValidator = [
+  body('title').not().isEmpty().withMessage('Необходимо указать название еды'),
+  body('callories').isNumeric().withMessage('Введите колличество каллорий цифрами'),
+  body('harmfulness').isNumeric().withMessage('Необходимо указать вредность еды'),
+  body('units').not().isEmpty().withMessage('Укажите единицы измерения')
+];
+
+// export const addFoodForDayValidator = [
+//   body('title').not().isEmpty().withMessage('Необходимо указать название еды'),
+//   body('callories').isNumeric().withMessage('Введите колличество каллорий цифрами'),
+//   body('harmfulness').isNumeric().withMessage('Необходимо указать вредность еды'),
+//   body('units').not().isEmpty().withMessage('Укажите единицы измерения')
+// ];
+
 // export const addGroupValidators = [
 //   body('groupTitle').isLength({min: 3}).withMessage('Длина названия должна быть не меенее 3х символов')
 // ]

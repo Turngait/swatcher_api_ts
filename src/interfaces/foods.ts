@@ -6,6 +6,8 @@ export interface IFood {
   descr: string,
   complex: boolean,
   ingridients: [string],
+  harmfulness?: number,
+  units?: string,
   createdAt: string
 }
 
@@ -17,6 +19,8 @@ export interface IFoodPublic {
   descr: string,
   complex: boolean,
   ingridients: [string],
+  harmfulness?: number,
+  units?: string,
   createdAt: string
 }
 

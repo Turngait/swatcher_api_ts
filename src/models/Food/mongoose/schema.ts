@@ -4,6 +4,7 @@ const foodSchema = {
   harmfulness: Number,
   complex: Boolean,
   ingridients: [String],
+  units: String,
   groupId: String,
   userId: String,
   descr: String,

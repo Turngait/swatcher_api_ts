@@ -18,6 +18,7 @@ class Food {
             groupId: food.groupId,
             complex: food.complex,
             harmfulness: food.harmfulness,
+            units: food.units,
             ingridients: food.ingridients,
             descr: food.descr,
             createdAt: food.createdAt
@@ -42,11 +43,12 @@ class Food {
       return null;
     }
   }
-  static async addNewFood(userId: string, title: string, callories: number, harmfulness: number, descr: string): Promise<{status: boolean, id: string}> {
+  static async addNewFood(userId: string, title: string, callories: number, units: string, harmfulness: number, descr: string): Promise<{status: boolean, id: string}> {
     const newFood = new Model({
       title,
       callories,
       harmfulness,
+      units,
       groupId: '',
       complex: false,
       ingridients: [],

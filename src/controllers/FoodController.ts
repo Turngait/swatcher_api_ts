@@ -10,9 +10,9 @@ class FoodController {
   }
 
   static async addNewFood(req: Request, res: Response): Promise<void> {
-    const {title, callories, harmfulness, descr, userId} = req.body;
+    const {title, callories, harmfulness, units, descr, userId} = req.body;
     let status = 500;
-    const result = await Food.addNewFood(userId, title, callories, harmfulness, descr);
+    const result = await Food.addNewFood(userId, title, callories, units, harmfulness, descr);
     if (result.status) status = 200;
     res.status(status);
     res.json({status, id: result.id});
