@@ -39,12 +39,20 @@ export const addFoodValidator = [
   body('units').not().isEmpty().withMessage('Укажите единицы измерения')
 ];
 
-// export const addFoodForDayValidator = [
-//   body('title').not().isEmpty().withMessage('Необходимо указать название еды'),
-//   body('callories').isNumeric().withMessage('Введите колличество каллорий цифрами'),
-//   body('harmfulness').isNumeric().withMessage('Необходимо указать вредность еды'),
-//   body('units').not().isEmpty().withMessage('Укажите единицы измерения')
-// ];
+export const addIllnessValidator = [
+  body('title').not().isEmpty().withMessage('Необходимо указать название недомогания'),
+  body('danger').isNumeric().withMessage('Выберите опасность недомогания')
+];
+
+export const addFoodForDayValidator = [
+  body('food_id').not().isEmpty().withMessage('Необходимо выбрать еду'),
+  body('amount').isNumeric().withMessage('Введите колличество цифрами'),
+];
+
+export const addIllnessForDayValidator = [
+  body('health_id').not().isEmpty().withMessage('Необходимо выбрать еду'),
+  body('duration').isNumeric().withMessage('Введите продолжительность в часах'),
+];
 
 // export const addGroupValidators = [
 //   body('groupTitle').isLength({min: 3}).withMessage('Длина названия должна быть не меенее 3х символов')

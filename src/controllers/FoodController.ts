@@ -36,12 +36,6 @@ class FoodController {
     res.status(status);
     res.json({status});
   }
-
-  static async addFoodForDay(req: Request, res: Response): Promise<void> {
-    console.log(req.body);
-
-    res.json({status: 200});
-  }
 }
 
 export default FoodController;

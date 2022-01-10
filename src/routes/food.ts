@@ -20,8 +20,4 @@ router.delete('/delfood', checkToken, async (req: Request, res: Response) => {
   await FoodController.deleteFood(req, res);
 });
 
-router.post('/addfoodforday', checkToken, async (req: Request, res: Response) => {
-  await FoodController.addFoodForDay(req, res);
-});
-
 export default router;

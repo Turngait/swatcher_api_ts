@@ -19,7 +19,14 @@ class StatController {
 
   static async addFoodForDay(req: Request, res: Response): Promise<void> {
     let status = 500;
-    const {food, date, userId} = req.body;
+    const {food_id, amount, time, description, date, userId} = req.body;
+    const food = {
+      food_id,
+      amount,
+      time,
+      description
+    };
+
     const statsForday = await Stats.addFoodForDay(food, date, userId);
     if(statsForday) status = 200;
     res.status(status);
@@ -28,7 +35,14 @@ class StatController {
 
   static async addIllnessForDay(req: Request, res: Response): Promise<void> {
     let status = 500;
-    const {illness, date, userId} = req.body;
+    const {health_id, power, duration, description, begin, date, userId} = req.body;
+    const illness = {
+      health_id,
+      power,
+      duration,
+      description,
+      begin
+    };
     const stats = await Stats.addIllnessForDay(illness, date, userId);
     if(stats) status = 200;
     res.status(status);

@@ -84,7 +84,6 @@ class Stats {
       newStat.health.unshift(illness);
       try {
         const statData = await newStat.save();
-        console.log(statData);
         return Stats.normalizeStatData(statData);
       } catch (err) {
         console.log(err);
