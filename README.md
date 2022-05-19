@@ -1,63 +1,59 @@
 # SelfWatcher API
 
-Серверная часть для приложения SelWatcher
+API of SelWatcher application
 
-Макеты приложения зедсь:
+Here you can find figma file:
 ```
 https://www.figma.com/file/yDcJx5ySr2y0z16LECbsEI/SelfWatcher?node-id=0%3A1
 ```
 
-Код клиентской части можно найти здесь:
+Client side here:
 ```
 https://github.com/Turngait/swatcher_client_ts
 ```
-Данное приложение является опенсорс проектом и каждый желающий может использовать код данного приложения по своему усмотрению.
+This project is an open-source based. Every can use this code or join to development of the project.
 
-## Требования
-В Вашей системе должны быть установлены следующие пакеты:
+## Requirements
+You need to install this application:
 ```
 git
 nodejs
 npm
 ```
 
-## Установка проекта локальная
+## Local project set up
 ```
 git clone https://github.com/Turngait/swatcher_api_ts.git api
 cd api
 npm install
 cp .env.example .env
 ```
-Далее, следует заполнить все поля в фаиле .env
-
-## Запуск проекта локально
+Next you need fill ol fields in .env file
+## Run project on local machine
 ```
 npm run server:watch
 ```
 
-## Что бы собрать проект для продакшена
+## How to build project for production
 ```
 npm run build
 ```
 
-## Структура проекта
-В каталоге dist находятся фаилы, которые tsc собрал вов ремя выолнения команды build или server:watch .
-Команда start как раз и запускает сервер из каталога dist. Можно использовать на VPS\VDS, а так же на таких сервисах как Heroku.
+## Project's structure
+In src folder:
+  - config - configuration files
+  - controllers - conttrollers which starting on certain routes
+  - intefaces - types and interfaces
+  - middleware - middleware functions
+  - models - models which contain logic of application
+  - routes - end-points
+  - utils - helpers and other functions
 
-В каталоге src находятся фаилы для разработке:
-  - config - фаилы конфигурации
-  - controllers - контроллеры, которые вызываеются на определенных рутах
-  - intefaces - интерфейсы\типы
-  - middleware - функции посредники вызывающиеся до того как запрос перейдет к контроллерам
-  - models - модели, в которой находится основная бизнес-логика
-  - routes - фаилы путей по которым приходят запросы на АПИ, так же там находится фаил с валидаторами
-  - utils - функции хелперы
+Locally project start from src/index.ts
 
-Локально при выполнении команды server:watch сервер запускается из фаила src/index.ts
+This file will be updated soon...
 
-Данный фаил со временем будет дополнятся.
-
-### Разработано мной
+### Developed by
 ```
-http://ilya-r.ru/
+http://ilya-r.com/
 ```

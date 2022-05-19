@@ -2,7 +2,7 @@ import { Document, Query } from 'mongoose';
 
 import Model from './mongoose/model';
 import { dateNow } from '../../utils/date';
-import {IFood, IFoodPublic, IFoodStat} from '../../interfaces/foods';
+import { IFood, IFoodPublic } from '../../interfaces/foods';
 
 class Food {
   static async getAllFoodData(userId: string): Promise<IFoodPublic | null> {
@@ -16,10 +16,10 @@ class Food {
             title: food.title,
             callories: food.callories,
             groupId: food.groupId,
-            complex: food.complex,
             harmfulness: food.harmfulness,
             units: food.units,
             ingridients: food.ingridients,
+            isComplex: food.isComplex,
             descr: food.descr,
             createdAt: food.createdAt
           })
@@ -50,8 +50,8 @@ class Food {
       harmfulness,
       units,
       groupId: '',
-      complex: false,
       ingridients: [],
+      isComplex: false,
       userId,
       descr,
       createdAt: dateNow()
