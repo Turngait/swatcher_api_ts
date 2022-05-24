@@ -1,6 +1,6 @@
 {
   "name": "swapi",
-  "version": "0.8.0",
+  "version": "0.6.1",
   "description": "API for Selwatcher",
   "main": "dist/index.js",
   "scripts": {

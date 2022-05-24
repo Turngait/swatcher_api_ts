@@ -1,7 +1,7 @@
 import { Document, Query } from 'mongoose';
 
 import Model from './mongoose/model';
-import { dateNow } from '../../utils/date';
+import { getTimestamp } from '../../utils/date';
 import { IFood, IFoodPublic } from '../../interfaces/foods';
 
 class Food {
@@ -14,11 +14,11 @@ class Food {
           publicFoods.push({
             id: food._id.toString(),
             title: food.title,
-            callories: food.callories,
+            calories: food.calories,
             groupId: food.groupId,
             harmfulness: food.harmfulness,
             units: food.units,
-            ingridients: food.ingridients,
+            ingredients: food.ingredients,
             isComplex: food.isComplex,
             descr: food.descr,
             createdAt: food.createdAt
@@ -43,18 +43,18 @@ class Food {
       return null;
     }
   }
-  static async addNewFood(userId: string, title: string, callories: number, units: string, harmfulness: number, descr: string): Promise<{status: boolean, id: string}> {
+  static async addNewFood(userId: string, title: string, calories: number, units: string, harmfulness: number, descr: string): Promise<{status: boolean, id: string}> {
     const newFood = new Model({
       title,
-      callories,
+      calories,
       harmfulness,
       units,
       groupId: '',
-      ingridients: [],
+      ingredients: [],
       isComplex: false,
       userId,
       descr,
-      createdAt: dateNow()
+      createdAt: getTimestamp()
     });
 
     try {
@@ -75,7 +75,7 @@ class Food {
       if(!oldFood) return false;
 
       oldFood.title = food.title;
-      oldFood.callories = food.callories;
+      oldFood.calories = food.calories;
       oldFood.descr = food.descr;
       await oldFood.save();
       return true;

@@ -11,6 +11,7 @@ class StatController {
     let status = 500;
     const stat = await Stats.getStatForPeriod(userId, period);
     const foods = await Food.getAllFoodData(userId);
+    console.log(foods)
     const health = await Health.getAllIllneses(userId);
     if(Array.isArray(stat)) status = 200;
     res.status(status);

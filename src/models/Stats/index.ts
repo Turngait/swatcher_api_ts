@@ -3,6 +3,8 @@ import { Document, Query } from 'mongoose';
 import { IFoodStat } from "interfaces/foods";
 import { IIllnessStat } from "interfaces/health";
 import {IStat, IStatPublic} from "interfaces/common";
+import { getTimestamp } from '../../utils/date';
+
 import Model from './mongoose/model';
 
 class Stats {
@@ -25,8 +27,8 @@ class Stats {
       date,
       period: date.slice(0, 7),
       foods: [],
-      helath: [],
-      createdAt: new Date()
+      health: [],
+      createdAt: getTimestamp()
     });
 
     try {

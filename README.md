@@ -57,3 +57,11 @@ This file will be updated soon...
 ```
 http://ilya-r.com/
 ```
+
+
+<hr/>
+# Releases
+
+## Alpha
+### May 24 2022 - v. 0.6.1
+Fix DB schema. Add food_groups schema.

@@ -1,8 +1,8 @@
 const foodSchema = {
   title: String,
-  callories: Number,
+  calories: Number,
   harmfulness: Number,
-  ingridients: [String],
+  ingredients: [String],
   isComplex: Boolean,
   units: String,
   groupId: String,

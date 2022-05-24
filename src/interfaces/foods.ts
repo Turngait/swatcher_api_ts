@@ -1,11 +1,11 @@
 export interface IFood {
   title: string,
-  callories: number,
+  calories: number,
   groupId: string,
   userId: string,
   descr: string,
   complex: boolean,
-  ingridients: [string],
+  ingredients: [string],
   harmfulness?: number,
   units?: string,
   createdAt: string
@@ -14,11 +14,11 @@ export interface IFood {
 export interface IFoodPublic {
   id: string,
   title: string,
-  callories: number,
+  calories: number,
   groupId: string,
   descr: string,
   complex: boolean,
-  ingridients: [string],
+  ingredients: [string],
   harmfulness?: number,
   units?: string,
   createdAt: string
